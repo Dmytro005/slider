@@ -44,6 +44,16 @@ $(function () {
         }, 700);
     }
 
+    function toFirstSlide() {
+        if (currentSlide === lastSlide + 1) {
+            currentSlide = 1;
+            $("#sliderContainer").animate({
+                scrollLeft: 0
+            }, 1000);
+
+        }
+    }
+
     //---------------play slider
     function play() {
 
@@ -61,15 +71,10 @@ $(function () {
 
             currentSlide++;
 
-            if (currentSlide === lastSlide + 1) {
-                currentSlide = 1;
-                $("#sliderContainer").animate({
-                    scrollLeft: 0
-                }, 1000);
-
-            }
+            toFirstSlide();
 
             circleActivate();
+
             console.log(currentSlide);
 
         }, slideDelay)
@@ -98,29 +103,29 @@ $(function () {
         play(); //play slider again
     })
 
-    //buttons previous and next event handler
-//    $(".btn").click(function () {
-//        stop();
-//        photoUpload();
-//        if ($(this).attr("id") == "next") {
-//            $("#sliderContainer").animate({ //scroll previous
-//                scrollLeft: $("body").width() * (currentSlide)
-//            }, 700);
-//            //            currentSlide -=1;
-//            //             alert($("body").width() * (currentSlide));
-//        } else {
-//            photoUpload();
-//
-//            $("#sliderContainer").animate({ //scroll previous
-//                scrollLeft: $("body").width() * (currentSlide - 1)
-//            }, 700);
-//            //            currentSlide +=1;
-//            //            alert( $("body").width() * (currentSlide - 1));
-//        }
-//        circleActivate();
-//        //        play();
-//
-//    })
+    //    buttons previous and next event handler
+    $(".btn").click(function () {
+        stop();
+            photoUpload();
+        if ($(this).attr("id") == "next") {
+
+            $("#sliderContainer").animate({ //scroll previous
+                scrollLeft: "+=" + width
+            }, 700);
+            currentSlide +=1;
+            console.log(next);
+
+        } else {
+            
+            $("#sliderContainer").animate({ //scroll previous
+                scrollLeft: "-=" + width
+            }, 700);
+            currentSlide -=1;
+        }
+        circleActivate();
+        play();
+
+    })
 
     play();
 
