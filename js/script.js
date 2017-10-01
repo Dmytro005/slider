@@ -1,6 +1,6 @@
 $(function () {
     var slideDelay = 4500;
-    var animDuration = 2000;
+    var animDuration = 1800;
 
     var currentSlide = 1;
     var width = $("body").width();
@@ -11,10 +11,10 @@ $(function () {
     var lastSlide = $slides.length;
 
     var circleHTML = "";
-    var currentCircle;
+    var currentCircle; // contains cu
     var previousCircle;
 
-    var interval;
+    var interval; // contains our interval playing
 
     //---------------create circles    
     for (var i = currentSlide; i <= lastSlide; i++) {
@@ -32,51 +32,40 @@ $(function () {
         currentCircle.addClass("active");
         previousCircle = currentCircle;
     }
-    //---------Upload Photo
+
+    //---------Upload Photo when it's need
     function photoUpload() {
         let count = currentSlide + 1;
         $(".slide:nth-child(" + count + ")").css("background", "url(img/slides/" + count + ".jpg)");
     }
+    //uppload first photo
+    $(".slide:nth-child(" + (currentSlide) + ")").css("background", "url(img/slides/" + (currentSlide) + ".jpg)");
 
+    //-----scroll to the current slide
     function scrollToCurrent() {
         $("#sliderContainer").animate({ //scroll previous
             scrollLeft: $("body").width() * currentSlide
         }, 700);
     }
 
+    //-----return slidet to first slide
     function toFirstSlide() {
         if (currentSlide === lastSlide + 1) {
             currentSlide = 1;
             $("#sliderContainer").animate({
                 scrollLeft: 0
             }, 1000);
-
         }
     }
 
-    //---------------play slider
+    //------play slider
     function play() {
 
         circleActivate();
 
-        $(".slide:nth-child(" + (currentSlide) + ")").css("background", "url(img/slides/" + (currentSlide) + ".jpg)");
-
         interval = setInterval(function () {
-
-            photoUpload();
-
-            $("#sliderContainer").animate({
-                scrollLeft: "+=" + width
-            }, animDuration, "swing");
-
-            currentSlide++;
-
-            toFirstSlide();
-
-            circleActivate();
-
-            console.log(currentSlide);
-
+            nextSlide();
+            //            console.log(currentSlide);
         }, slideDelay)
     }
 
@@ -85,7 +74,46 @@ $(function () {
         clearInterval(interval);
     }
 
-    //circle click event handler
+    function nextSlide() {
+        stop();
+
+        photoUpload();
+
+        currentSlide += 1;
+
+        circleActivate();
+        $("#sliderContainer").animate({ //scroll previous
+            scrollLeft: "+=" + width
+        }, animDuration);
+
+        if (currentSlide > lastSlide) {
+            toFirstSlide();
+        }
+        play();
+        console.log(currentSlide);
+    }
+
+    function prevSlide() {
+        stop();
+
+        currentSlide -= 1;
+
+        circleActivate();
+
+        $("#sliderContainer").animate({ //scroll to next
+            scrollLeft: "-=" + width
+        }, animDuration);
+
+        if (currentSlide < 1) {
+            currentSlide = 1;
+            circleActivate();
+        }
+        play();
+        console.log(currentSlide);
+
+    }
+
+    //----circle click event handler
     $(".circle").click(function () {
 
         stop(); //stop slider
@@ -103,30 +131,34 @@ $(function () {
         play(); //play slider again
     })
 
-    //    buttons previous and next event handler
+    //----buttons previous and next event handler
     $(".btn").click(function () {
-        stop();
-            photoUpload();
         if ($(this).attr("id") == "next") {
-
-            $("#sliderContainer").animate({ //scroll previous
-                scrollLeft: "+=" + width
-            }, 700);
-            currentSlide +=1;
-            console.log(next);
-
+            nextSlide();
         } else {
-            
-            $("#sliderContainer").animate({ //scroll previous
-                scrollLeft: "-=" + width
-            }, 700);
-            currentSlide -=1;
+            prevSlide();
         }
-        circleActivate();
+    });
+
+    //----key work;
+    $("body").keydown(function (e) {
+        if (e.keyCode == 37) { // left
+            prevSlide();
+        } else if (e.keyCode == 39) { // right
+            nextSlide();
+        }
+    });
+    
+    $("#slider").mouseenter(function () {
+            stop();
+        console.log("enter");
+        })
+        .mouseleave(function () {
+        console.log("leave");    
         play();
+        });
 
-    })
-
+    //-----activate autoplay
     play();
 
 });
