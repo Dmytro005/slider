@@ -3,7 +3,7 @@ $(function () {
     var animDuration = 1800;
 
     var currentSlide = 1;
-    var width = $("body").width();
+    var width = $("#slider").width();
 
     var $slider = $("#slider");
     var $sliderContainer = $slider.find("#sliderContainer");
@@ -11,7 +11,7 @@ $(function () {
     var lastSlide = $slides.length;
 
     var circleHTML = "";
-    var currentCircle; // contains cu
+    var currentCircle;
     var previousCircle;
 
     var interval; // contains our interval playing
@@ -44,7 +44,7 @@ $(function () {
     //-----scroll to the current slide
     function scrollToCurrent() {
         $("#sliderContainer").animate({ //scroll previous
-            scrollLeft: $("body").width() * currentSlide
+            scrollLeft: width * currentSlide
         }, 700);
     }
 
@@ -79,7 +79,7 @@ $(function () {
 
         photoUpload();
 
-        currentSlide += 1;
+        ++currentSlide;
 
         circleActivate();
         $("#sliderContainer").animate({ //scroll previous
@@ -96,7 +96,7 @@ $(function () {
     function prevSlide() {
         stop();
 
-        currentSlide -= 1;
+        --currentSlide;
 
         circleActivate();
 
@@ -119,7 +119,7 @@ $(function () {
         stop(); //stop slider
 
         $("#sliderContainer").animate({ //scroll to certain block
-            scrollLeft: $("body").width() * ($(this).attr("slide-id") - 1)
+            scrollLeft: width * ($(this).attr("slide-id") - 1)
         }, animDuration, "swing");
 
         currentSlide = $(this).attr("slide-id"); //change current slide
@@ -148,15 +148,15 @@ $(function () {
             nextSlide();
         }
     });
-    
-    $("#slider").mouseenter(function () {
-            stop();
-        console.log("enter");
-        })
-        .mouseleave(function () {
-        console.log("leave");    
-        play();
-        });
+
+//    $("#slider").mouseenter(function () {
+//            stop();
+//            console.log("enter");
+//        })
+//        .mouseleave(function () {
+//            console.log("leave");
+//            play();
+//        });
 
     //-----activate autoplay
     play();
