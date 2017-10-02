@@ -5,109 +5,95 @@
 }
 
 $dot-color: rgba(72, 72, 72, 0.9);
-
 h3 {
     margin: 10px;
 }
 
 #slider {
     height: 70vh;
-    width: 100%;
-    .btnContainer {
-        position: absolute;
-        display: flex;
-        margin: auto;
-        width: 100%;
-        height: inherit;
-        align-items: center;
-        justify-content: space-between;
-        .btn {
-            width: 40px;
-            height: 40px;
-            display: block;
-            border-radius: 50%;
-            background-color: rgb(221, 221, 221);
-            margin: 20px;
-            cursor: pointer;
-            transition: transform 300ms;
-            opacity: (0.8);
-            &:hover {
-                transform: scale(1.2);
-            }
-            &:nth-child(2n) {
-                transform: rotateY(-180deg);
-                &:hover {
-                    transform: scale(1.2) rotateY(-180deg);
-                }
-            }
-            &::after {
-                content: "";
-                display: block;
-                border-radius: 50%;
-                width: 16px;
-                height: 16px;
-                margin-top: 12px;
-                margin-left: 12px;
-                background: url("../img/icons/arrow.svg");
-                &:hover{
-//                     transform: scale(0.8);
-                }
-            }
-        }
-    }
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //    border: 1px solid black;
+    flex-direction: column;
     #sliderContainer {
-        display: flex;
-        flex-direction: column;
-        overflow-x: scroll;
-        overflow: hidden;
         height: 100%;
-        flex-wrap: wrap;
+        width: 100%;
+        display: flex;
+        position: relative;
         .slide {
+            position: absolute;
             height: 100%;
-            width: 100%;
+            width: inherit;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-position: center !important;
             background-size: cover !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-    .bar {
-        position: relative;
-        width: 300px;
-        height: 50px;
-        display: flex;
-        margin: auto;
-        margin-top: -50px;
-        justify-content: space-around;
-        .circle {
-            width: 12px;
-            height: 12px;
-            background-color: $dot-color;
-            border-radius: 50%;
-            margin: auto;
-            cursor: pointer;
-            transition: 500ms;
-            &:hover {
-                transform: scale(1.5);
+            //            transform: translate(100px 20px);
+            //            transform: scale(2);
+            opacity: 0;
+            transition: all 1s;
+            .slide[slide-id="1"] {
+                align-items: flex-end;
+                justify-content: flex-start;
+            }
+            .text {
+                width: 350px;
+                background-color: rgba(240, 248, 255, 0.56);
+                padding: 10px;
+                border: 10px solid rgb(0, 0, 0);
+                position: relative;
+                margin: auto;
+                box-shadow: 5px 7px 20px 4px rgba(0, 0, 0, 0.43)
             }
         }
         .active {
-            &::after {
-                content: "";
+            animation: transforM 1s ease-in-out;
+            @keyframes transforM {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 0.5;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+            opacity: 1;
+        }
+    }
+    .bar {
+        height: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-self: flex-end;
+        align-items: center;
+        margin: 0 auto;
+        .nav-btn {
+            p {
+                font-weight: 600;
+                width: auto;
+                cursor: pointer;
                 display: block;
-                border-radius: 50%;
-                width: 16px;
-                height: 16px;
-//                background-color: rgba(0, 0, 0, 0.5);
-                border: 2px solid $dot-color;
-                opacity: (0.6);
-                margin-top: -4px;
-                margin-left: -4px;
+                margin: 10px;
             }
-            &:hover {
-                transform: scale(1);
-            }
+        }
+    }
+    .prev-next {
+        display: flex;
+        cursor: pointer;
+        .arrow {
+            width: 100px;
+            height: 30px;
+            background-color: antiquewhite;
+            margin: 10px;
+        }
+        #previous {
+            background-color: aqua;
         }
     }
 }

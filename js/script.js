@@ -17,11 +17,11 @@ $(function () {
     var interval; // contains our interval playing
 
     //---------------create circles    
-    for (var i = currentSlide; i <= lastSlide; i++) {
+/*    for (var i = currentSlide; i <= lastSlide; i++) {
         circleHTML += '<div class="circle" slide-id="' + i + '"></div>';
     }
     //---------------paste circles    
-    $slider.append("<div class='bar'>" + circleHTML + "</div>");
+    $slider.append("<div class='bar'>" + circleHTML + "</div>");*/
 
     //---------------check and activate circles
     function circleActivate() {
@@ -159,6 +159,6 @@ $(function () {
 //        });
 
     //-----activate autoplay
-    play();
+//    play();
 
 });
