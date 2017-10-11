@@ -36,3 +36,9 @@ $(".nav-btn").click(function () {
 })
 
 $(".slide:nth-child(1)").css("background", "url(img/slides/1.jpg)");
+
+function play(){
+    setInterval(function(){
+        
+    },4000)
+}
